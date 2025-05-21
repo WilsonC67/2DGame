@@ -1,14 +1,10 @@
 package Entities;
 
-import java.awt.Color;
 import java.awt.Graphics2D;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
-
-
 import javax.imageio.ImageIO;
-
 import main.GamePanel;
 import main.KeyboardInputHandler;
 
@@ -25,6 +21,42 @@ public class Player extends Entity {
 
 
         setDefaultValues();
+        setPlayerSprites();
+        
+    }
+
+    public void setPlayerSprites() {
+        File f1 = new File("./src/res/player/slime_up_1.png");
+        File f2 = new File("./src/res/player/slime_up_2.png");
+        File f3 = new File("./src/res/player/slime_down_1.png");
+        File f4 = new File("./src/res/player/slime_down_2.png");
+        File f5 = new File("./src/res/player/slime_left_1.png");
+        File f6 = new File("./src/res/player/slime_left_2.png");
+        File f7 = new File("./src/res/player/slime_right_1.png");
+        File f8 = new File("./src/res/player/slime_right_2.png");
+
+        try {
+            up1 = ImageIO.read(f1);
+
+            up2 = ImageIO.read(f2);
+
+            down1 = ImageIO.read(f3);
+
+            down2 = ImageIO.read(f4);
+
+            left1 = ImageIO.read(f5);
+
+            left2 = ImageIO.read(f6);
+
+            right1 = ImageIO.read(f7);
+
+            right2 = ImageIO.read(f8);
+
+        }
+
+        catch(IOException e) {
+            e.printStackTrace();
+        }
     }
 
     public void setDefaultValues() {
@@ -79,38 +111,6 @@ public class Player extends Entity {
         // g2.setColor(Color.WHITE);
         // // this will draw a rectangle with the color that was declared last; in this case: white
         // g2.fillRect(x, y, gamePanel.tileSize, gamePanel.tileSize);
-
-        File f1 = new File("./src/res/player/slime_up_1.png");
-        File f2 = new File("./src/res/player/slime_up_2.png");
-        File f3 = new File("./src/res/player/slime_down_1.png");
-        File f4 = new File("./src/res/player/slime_down_2.png");
-        File f5 = new File("./src/res/player/slime_left_1.png");
-        File f6 = new File("./src/res/player/slime_left_2.png");
-        File f7 = new File("./src/res/player/slime_right_1.png");
-        File f8 = new File("./src/res/player/slime_right_2.png");
-
-        try {
-            up1 = ImageIO.read(f1);
-
-            up2 = ImageIO.read(f2);
-
-            down1 = ImageIO.read(f3);
-
-            down2 = ImageIO.read(f4);
-
-            left1 = ImageIO.read(f5);
-
-            left2 = ImageIO.read(f6);
-
-            right1 = ImageIO.read(f7);
-
-            right2 = ImageIO.read(f8);
-
-        }
-
-        catch(IOException e) {
-            e.printStackTrace();
-        }
         
         image = null;
 
