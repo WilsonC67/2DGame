@@ -1,8 +1,7 @@
 package main;
-import javax.swing.JFrame;
-
 import java.awt.Dimension;
 import java.awt.Toolkit;
+import javax.swing.JFrame;
 
 public class Main {
     public static void main(String[] args) {
@@ -27,5 +26,7 @@ public class Main {
         window.add(gamePanel);
         window.pack();
         window.setLocation((int)dimension.getWidth() / 2 - gamePanel.screenWidth / 2, (int)dimension.getHeight() / 2 - gamePanel.screenHeight / 2);
+
+        gamePanel.requestFocusInWindow();
     }
 }
