@@ -34,22 +34,37 @@ public class TileManager {
      * Post-conditions: all tile pngs are stored in the tile array
     */
     public void getTileImage() {
-        File grassImage = new File("./src/res/tiles/grass.png");
-        File waterImage = new File("./src/res/tiles/water.png");
-        File wallImage = new File("./src/res/tiles/wall.png");
+        File grassTile = new File("./src/res/tiles/grass.png");
+        File waterTile = new File("./src/res/tiles/water.png");
+        File wallTile = new File("./src/res/tiles/wall.png");
+        File dirtTile = new File("./src/res/tiles/dirt.png");
+        File sandTile = new File("./src/res/tiles/sand.png");
+        File treeTile = new File("./src/res/tiles/tree.png");
         
         try {
             // 0 means a grass tile.
             tile[0] = new Tile();
-            tile[0].image = ImageIO.read(grassImage);
+            tile[0].image = ImageIO.read(grassTile);
 
             // 1 means a wall tile.
             tile[1] = new Tile();
-            tile[1].image = ImageIO.read(wallImage);
+            tile[1].image = ImageIO.read(wallTile);
 
             // 2 means a water tile.
             tile[2] = new Tile();
-            tile[2].image = ImageIO.read(waterImage);
+            tile[2].image = ImageIO.read(waterTile);
+
+            // 3 means a dirt tile
+            tile[3] = new Tile();
+            tile[3].image = ImageIO.read(dirtTile);
+
+            // 4 means a tree tile
+            tile[4] = new Tile();
+            tile[4].image = ImageIO.read(treeTile);
+
+            // 5 means a sand tile
+            tile[5] = new Tile();
+            tile[5].image = ImageIO.read(sandTile);
         }
 
         catch(IOException e) {

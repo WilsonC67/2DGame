@@ -4,7 +4,7 @@ import java.awt.image.BufferedImage;
 // parent class for any player classes, characters, etc
 public class Entity {
     // x and y coordinates for the entities
-    public int x, y;
+    public int worldX, worldY;
 
     // how many pixels the entity travels in one frame
     public int speed;
