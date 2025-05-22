@@ -47,6 +47,7 @@ public class GamePanel extends JPanel implements Runnable {
     public GamePanel() {
         this.setPreferredSize(new Dimension(screenWidth, screenHeight));
         this.setBackground(Color.CYAN);
+
         // if this is true, all the drawings from this component will be done in an offscreen painting buffer
         this.setDoubleBuffered(true);
         this.addKeyListener(keyboard);
@@ -90,6 +91,8 @@ public class GamePanel extends JPanel implements Runnable {
                 if (remainingTime < 0) {
                     remainingTime = 0;
                 }
+
+                // delays the Thread, thus limiting player movement to the intended FPS value
                 Thread.sleep((long) remainingTime);
                 nextDrawTime += drawInterval;
 
@@ -104,6 +107,11 @@ public class GamePanel extends JPanel implements Runnable {
         player.update();
     }
 
+    /**
+     * Paints whatever is called in this method.
+     * Preconditions: all graphics are valid and classes that have the draw method are initialized
+     * Postconditions: the graphics are drawn in a manner that corresponds to their respective classes
+     */
     @Override
     public void paintComponent(Graphics g) {
         super.paintComponent(g);
@@ -119,6 +127,7 @@ public class GamePanel extends JPanel implements Runnable {
         // this removes the Graphics2D after the drawing is complete; this saves some memory
         g2.dispose();
 
+        // this switches the background color with a delay of 1 second, it will otherwise be VERY FLASHY without a delay
         // this.setBackground(new Color(
         //     (int) (Math.random() * 256),
         //     (int) (Math.random() * 256),
@@ -129,5 +138,4 @@ public class GamePanel extends JPanel implements Runnable {
         //     e.printStackTrace();
         // }
     }
-
 }
