@@ -12,6 +12,9 @@ public class Player extends Entity {
     GamePanel gamePanel;
     KeyboardInputHandler keyboard;
     BufferedImage image;
+
+    public final int screenX;
+    public final int screenY;
     
     // A Game Panel and a keylistener as arguments so the gamePanel knows of the instance of the player and thus can call
     // on its methods, thus reacting to the player's key inputs
@@ -20,6 +23,9 @@ public class Player extends Entity {
         this.gamePanel = gamePanel;
         this.keyboard = keyboard;
 
+        // we get the midpoint of the map and subtract half a tileSize from both values for centering the player
+        screenX = (gamePanel.screenWidth / 2) - (gamePanel.tileSize / 2);
+        screenY = (gamePanel.screenHeight / 2) - (gamePanel.tileSize / 2);
 
         setInitialValues();
         setPlayerSprites();
@@ -72,8 +78,8 @@ public class Player extends Entity {
      * Postconditions: initial values for the location, speed, and direction of the player are set to explicit values
      */
     public void setInitialValues() {
-        x = 100;
-        y = 100;
+        worldX = gamePanel.tileSize * 23;
+        worldY = gamePanel.tileSize * 21;
         speed = 4;
         direction = "left";
     }
@@ -93,19 +99,19 @@ public class Player extends Entity {
 
             if (keyboard.upPressed == true) {
                 direction = "up";
-                y -= speed;
+                worldY -= speed;
 
             } else if (keyboard.downPressed == true) {
                 direction = "down";
-                y += speed;
+                worldY += speed;
 
             } else if (keyboard.leftPressed == true) {
                 direction = "left";
-                x -= speed;
+                worldX -= speed;
 
             } else if (keyboard.rightPressed == true) {
                 direction = "right";
-                x += speed;
+                worldX += speed;
             }
 
             // this update method gets called 60 times per second
@@ -173,6 +179,6 @@ public class Player extends Entity {
                 break;
         }
         
-        g2.drawImage(image, x, y, gamePanel.tileSize, gamePanel.tileSize, null);
+        g2.drawImage(image, screenX, screenY, gamePanel.tileSize, gamePanel.tileSize, null);
     }
 }

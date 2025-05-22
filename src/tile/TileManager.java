@@ -22,10 +22,10 @@ public class TileManager {
         tile = new Tile[10];
 
         // this will store all the numbers from a map txt file
-        mapTileNumber = new int[gamePanel.maxScreenColumns][gamePanel.maxScreenRows];
+        mapTileNumber = new int[gamePanel.maxWorldColumns][gamePanel.maxWorldRows];
         
         getTileImage();
-        readMapFromFile("./src/res/maps/map1.txt");
+        readMapFromFile("./src/res/maps/map2.txt");
     }
 
     /**    
@@ -34,22 +34,37 @@ public class TileManager {
      * Post-conditions: all tile pngs are stored in the tile array
     */
     public void getTileImage() {
-        File grassImage = new File("./src/res/tiles/grass.png");
-        File waterImage = new File("./src/res/tiles/water.png");
-        File wallImage = new File("./src/res/tiles/wall.png");
+        File grassTile = new File("./src/res/tiles/grass.png");
+        File waterTile = new File("./src/res/tiles/water.png");
+        File wallTile = new File("./src/res/tiles/wall.png");
+        File dirtTile = new File("./src/res/tiles/dirt.png");
+        File sandTile = new File("./src/res/tiles/sand.png");
+        File treeTile = new File("./src/res/tiles/tree.png");
         
         try {
             // 0 means a grass tile.
             tile[0] = new Tile();
-            tile[0].image = ImageIO.read(grassImage);
+            tile[0].image = ImageIO.read(grassTile);
 
             // 1 means a wall tile.
             tile[1] = new Tile();
-            tile[1].image = ImageIO.read(wallImage);
+            tile[1].image = ImageIO.read(wallTile);
 
             // 2 means a water tile.
             tile[2] = new Tile();
-            tile[2].image = ImageIO.read(waterImage);
+            tile[2].image = ImageIO.read(waterTile);
+
+            // 3 means a dirt tile
+            tile[3] = new Tile();
+            tile[3].image = ImageIO.read(dirtTile);
+
+            // 4 means a tree tile
+            tile[4] = new Tile();
+            tile[4].image = ImageIO.read(treeTile);
+
+            // 5 means a sand tile
+            tile[5] = new Tile();
+            tile[5].image = ImageIO.read(sandTile);
         }
 
         catch(IOException e) {
@@ -70,11 +85,11 @@ public class TileManager {
             int column = 0;
             int row = 0;
 
-            while (column < gamePanel.maxScreenColumns && row < gamePanel.maxScreenRows) {
+            while (column < gamePanel.maxWorldColumns && row < gamePanel.maxWorldRows) {
                 // reads a line at a time
                 String line = mapReader.readLine();
 
-                while (column < gamePanel.maxScreenColumns) {
+                while (column < gamePanel.maxWorldColumns) {
                     // this splits the read line using a space as a regex
                     String numbers[] = line.split(" ");
 
@@ -85,7 +100,7 @@ public class TileManager {
                     column++;
                 }
 
-                if (column == gamePanel.maxScreenColumns) {
+                if (column == gamePanel.maxWorldColumns) {
                     column = 0;
                     row++;
                 }
@@ -107,24 +122,34 @@ public class TileManager {
     */
     public void draw(Graphics2D g2) {
 
-        int columns = 0;
-        int rows = 0;
-        int x = 0;
-        int y = 0;
+        int worldColumn = 0;
+        int worldRow = 0;
 
-        while (columns < gamePanel.maxScreenColumns && rows < gamePanel.maxScreenRows) {
+        while (worldColumn < gamePanel.maxWorldColumns && worldRow < gamePanel.maxWorldRows) {
 
-            int tileNum = mapTileNumber[columns][rows];
+            int tileNum = mapTileNumber[worldColumn][worldRow];
 
-            g2.drawImage(tile[tileNum].image, x, y, gamePanel.tileSize, gamePanel.tileSize, null);
-            columns++;
-            x += gamePanel.tileSize;
+            int worldX = worldColumn * gamePanel.tileSize;
+            int worldY = worldRow * gamePanel.tileSize;
+            int screenX = worldX - gamePanel.player.worldX + gamePanel.player.screenX;
+            int screenY = worldY - gamePanel.player.worldY + gamePanel.player.screenY;
 
-            if (columns == gamePanel.maxScreenColumns) {
-                columns = 0;
-                x = 0;
-                rows++;
-                y += gamePanel.tileSize;
+            // setting a boundary so that it will only render the tiles around the player instead of
+            // drawing the entire map constantly
+            if (worldX + gamePanel.tileSize > (gamePanel.player.worldX - gamePanel.player.screenX + 1) && 
+                worldX - gamePanel.tileSize < (gamePanel.player.worldX + gamePanel.player.screenX + 1) && 
+                worldY + gamePanel.tileSize > (gamePanel.player.worldY - gamePanel.player.screenY + 1) && 
+                worldY - gamePanel.tileSize < (gamePanel.player.worldY + gamePanel.player.screenY + 1)) {
+                
+                    g2.drawImage(tile[tileNum].image, screenX, screenY, gamePanel.tileSize, gamePanel.tileSize, null);
+
+                }
+
+            worldColumn++;
+
+            if (worldColumn == gamePanel.maxWorldColumns) {
+                worldColumn = 0;
+                worldRow++;
             }
         }
     }
