@@ -13,19 +13,26 @@ public class Player extends Entity {
     KeyboardInputHandler keyboard;
     BufferedImage image;
     
-
+    // A Game Panel and a keylistener as arguments so the gamePanel knows of the instance of the player and thus can call
+    // on its methods, thus reacting to the player's key inputs
     public Player(GamePanel gamePanel, KeyboardInputHandler keyboard) {
         // using "this" keyword because the parameters for this constructor and names of the variables are the same
         this.gamePanel = gamePanel;
         this.keyboard = keyboard;
 
 
-        setDefaultValues();
+        setInitialValues();
         setPlayerSprites();
         
     }
 
+    /**
+     * Loads the player sprites.
+     * Preconditions: all sprite pngs are valid (in the right spot) and can be scanned appropriately
+     * Postconditions: all sprite pngs are stored in the 8 BufferedImage objects
+     */
     public void setPlayerSprites() {
+
         File f1 = new File("./src/res/player/slime_up_1.png");
         File f2 = new File("./src/res/player/slime_up_2.png");
         File f3 = new File("./src/res/player/slime_down_1.png");
@@ -59,13 +66,25 @@ public class Player extends Entity {
         }
     }
 
-    public void setDefaultValues() {
+    /**
+     * sets the initial location, speed, and direction of the player
+     * Preconditions: none
+     * Postconditions: initial values for the location, speed, and direction of the player are set to explicit values
+     */
+    public void setInitialValues() {
         x = 100;
         y = 100;
         speed = 4;
         direction = "left";
     }
 
+    /**
+     * Updates the location of the player using keyboard input
+     * Precondition: the game panel and keyboard are both initialized via the constructor
+     * Postconditions:
+     *      the player/sprite is moved accordingly to the corresponding clicked key
+     *      also shuffles the sprite counter to imitate movement
+     */
     public void update() {
         // purpose of this if block is to make it so that the spriteCounter only increments
         // only if the user is pressing a movement key
@@ -106,6 +125,12 @@ public class Player extends Entity {
 
     }
 
+    /**
+     * Draws the player sprite depending on its direction
+     * @param g2
+     * Preconditions: player, gamePanel, and keyboard are all valid
+     * Postconditions: draws the player sprite with its differing movement sprites
+     */
     public void draw(Graphics2D g2) {
 
         // g2.setColor(Color.WHITE);
@@ -147,6 +172,7 @@ public class Player extends Entity {
                 }
                 break;
         }
+        
         g2.drawImage(image, x, y, gamePanel.tileSize, gamePanel.tileSize, null);
     }
 }

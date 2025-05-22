@@ -10,6 +10,7 @@ public class KeyboardInputHandler implements KeyListener {
     public void keyPressed(KeyEvent e) {
         int ASCIICode = e.getKeyCode();
 
+        // when a directional key is pressed, it sets its corresponding boolean value to true
         switch(ASCIICode) {
             // W key
             case KeyEvent.VK_UP:
@@ -41,6 +42,7 @@ public class KeyboardInputHandler implements KeyListener {
     public void keyReleased(KeyEvent e) {
         int ASCIICode = e.getKeyCode();
 
+        // when released, it sets the boolean to false (stops movement when the button is released)
         switch(ASCIICode) {
             // W key
             case KeyEvent.VK_UP:
