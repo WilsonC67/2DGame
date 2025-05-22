@@ -43,13 +43,13 @@ public class TileManager {
             tile[0] = new Tile();
             tile[0].image = ImageIO.read(grassImage);
 
-            // 1 means a water tile.
+            // 1 means a wall tile.
             tile[1] = new Tile();
-            tile[1].image = ImageIO.read(waterImage);
+            tile[1].image = ImageIO.read(wallImage);
 
-            // 2 means a wall tile.
+            // 2 means a water tile.
             tile[2] = new Tile();
-            tile[2].image = ImageIO.read(wallImage);
+            tile[2].image = ImageIO.read(waterImage);
         }
 
         catch(IOException e) {
@@ -96,7 +96,7 @@ public class TileManager {
         }
             
         catch(Exception e) {
-
+            e.printStackTrace();
         }
     }
 
@@ -127,6 +127,5 @@ public class TileManager {
                 y += gamePanel.tileSize;
             }
         }
-
     }
 }
