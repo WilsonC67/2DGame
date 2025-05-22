@@ -134,7 +134,17 @@ public class TileManager {
             int screenX = worldX - gamePanel.player.worldX + gamePanel.player.screenX;
             int screenY = worldY - gamePanel.player.worldY + gamePanel.player.screenY;
 
-            g2.drawImage(tile[tileNum].image, screenX, screenY, gamePanel.tileSize, gamePanel.tileSize, null);
+            // setting a boundary so that it will only render the tiles around the player instead of
+            // drawing the entire map constantly
+            if (worldX + gamePanel.tileSize > (gamePanel.player.worldX - gamePanel.player.screenX + 1) && 
+                worldX - gamePanel.tileSize < (gamePanel.player.worldX + gamePanel.player.screenX + 1) && 
+                worldY + gamePanel.tileSize > (gamePanel.player.worldY - gamePanel.player.screenY + 1) && 
+                worldY - gamePanel.tileSize < (gamePanel.player.worldY + gamePanel.player.screenY + 1)) {
+                
+                    g2.drawImage(tile[tileNum].image, screenX, screenY, gamePanel.tileSize, gamePanel.tileSize, null);
+
+                }
+
             worldColumn++;
 
             if (worldColumn == gamePanel.maxWorldColumns) {
