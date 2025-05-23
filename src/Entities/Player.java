@@ -1,6 +1,7 @@
 package Entities;
 
 import java.awt.Graphics2D;
+import java.awt.Rectangle;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
@@ -26,6 +27,8 @@ public class Player extends Entity {
         // we get the midpoint of the map and subtract half a tileSize from both values for centering the player
         screenX = (gamePanel.screenWidth / 2) - (gamePanel.tileSize / 2);
         screenY = (gamePanel.screenHeight / 2) - (gamePanel.tileSize / 2);
+
+        collisionArea = new Rectangle(8, 8, 16, 16);
 
         setInitialValues();
         setPlayerSprites();
@@ -113,6 +116,10 @@ public class Player extends Entity {
                 direction = "right";
                 worldX += speed;
             }
+
+            collisionOn = false;
+            // collisionChecker receives the Player object as an Entity to check it
+            gamePanel.collisionChecker.checkTile(this);
 
             // this update method gets called 60 times per second
             // every frame, spriteCounter is incremented; when this reaches 10, it changes the sprite
