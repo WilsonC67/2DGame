@@ -16,6 +16,7 @@ public class TileManager {
     Tile[] tile;
     int mapTileNumber[][];
 
+    @SuppressWarnings("OverridableMethodCallInConstructor")
     public TileManager(GamePanel gamePanel) {
         this.gamePanel = gamePanel;
 
@@ -33,6 +34,7 @@ public class TileManager {
      * Pre-conditions: all tile pngs are valid and accessible
      * Post-conditions: all tile pngs are stored in the tile array
     */
+    @SuppressWarnings("CallToPrintStackTrace")
     public void getTileImage() {
         File grassTile = new File("./src/res/tiles/grass.png");
         File waterTile = new File("./src/res/tiles/water.png");
@@ -49,10 +51,12 @@ public class TileManager {
             // 1 means a wall tile.
             tile[1] = new Tile();
             tile[1].image = ImageIO.read(wallTile);
+            tile[1].collision = true;
 
             // 2 means a water tile.
             tile[2] = new Tile();
             tile[2].image = ImageIO.read(waterTile);
+            tile[2].collision = true;
 
             // 3 means a dirt tile
             tile[3] = new Tile();
@@ -61,6 +65,7 @@ public class TileManager {
             // 4 means a tree tile
             tile[4] = new Tile();
             tile[4].image = ImageIO.read(treeTile);
+            tile[4].collision = true;
 
             // 5 means a sand tile
             tile[5] = new Tile();
@@ -72,6 +77,7 @@ public class TileManager {
         }
     }
 
+    @SuppressWarnings({"CallToPrintStackTrace", "UseSpecificCatch", "ConvertToTryWithResources"})
     private void readMapFromFile(String filePath) {
         try {
 

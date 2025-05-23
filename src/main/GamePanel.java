@@ -38,6 +38,9 @@ public class GamePanel extends JPanel implements Runnable {
     // once it starts, it continues going before stopped
     Thread gameThread;
 
+    // Collision Checking
+    public CheckCollision collisionChecker = new CheckCollision(this);
+
     // for keyboard input
     KeyboardInputHandler keyboard = new KeyboardInputHandler();
 

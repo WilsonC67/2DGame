@@ -1,4 +1,5 @@
 package Entities;
+import java.awt.Rectangle;
 import java.awt.image.BufferedImage;
 
 // parent class for any player classes, characters, etc
@@ -18,4 +19,9 @@ public class Entity {
     // these two int values are for fluctuating between the two images to imitate a more realistic walking movement
     public int spriteCounter = 0;
     public int spriteNum = 1;
+
+    // an area that is put on the player sprite to detect collision; only some part of the player sprite should
+    // count for collision. this area is intuitively smaller than the size of the player sprite (48x48 px) 
+    public Rectangle collisionArea;
+    public boolean collisionOn = false;
 }
